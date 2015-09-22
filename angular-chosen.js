@@ -69,12 +69,10 @@
 
       var allowSingleDeselect = iElm.attr('allow-single-deselect') !== undefined ? true : false;
 
-      iElm.chosen({
-        width: '100%',
-        max_selected_options: maxSelection,
-        disable_search_threshold: searchThreshold,
-        search_contains: true,
-        create_option: function(term) {
+      var addDataOption = false;
+
+      if (iElm.attr('data-add-option') || iElm.attr('data-add-url')) {
+        addDataOption = function(term) {
           var chosen = this;
           var dd_model = chosen.form_field_jq.data('add-option');
           var data_url = chosen.form_field_jq.data('add-url');
@@ -102,7 +100,15 @@
               });
             });
           }
-        },
+        }
+      }
+
+      iElm.chosen({
+        width: '100%',
+        max_selected_options: maxSelection,
+        disable_search_threshold: searchThreshold,
+        search_contains: true,
+        create_option: addDataOption,
         allow_single_deselect: allowSingleDeselect
       });
 
