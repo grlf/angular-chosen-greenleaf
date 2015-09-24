@@ -69,40 +69,67 @@
 
       var allowSingleDeselect = iElm.attr('allow-single-deselect') !== undefined ? true : false;
 
+      var addDataOption = false;
+
+      if (iElm.attr('data-add-option') || iElm.attr('data-add-url')) {
+        addDataOption = function(term) {
+          var chosen = this;
+
+          var confirmOptions = {
+            title: 'Are you sure?',
+            text: 'Are you sure you want to to add this option?',
+            type: 'info',
+            showCancelButton: true,
+            confirmButtontext: 'Yes',
+            cancelButtonText: 'Cancel',
+            closeOnConfirm: false,
+            closeOnCancel: true,
+            'callback': function(isConfirm){
+              if(isConfirm) {
+                var dd_model = chosen.form_field_jq.data('add-option');
+                var data_url = chosen.form_field_jq.data('add-url');
+                var url = api_prefix + 'dd';
+                if(data_url != null){
+                  url = data_url;
+                }
+
+                // check to see if there's a releates to data object
+                var relatesToSelector = chosen.form_field_jq.data('relates-to');
+                if(relatesToSelector != null){ // post with relatedid
+
+                  $.post(url, {name: term, relatedId: $(relatesToSelector).val(), _token: $('meta[name="_token"]').attr('content'), model: dd_model}, function(data){
+                    chosen.append_option({
+                      value: data.id,
+                      text: data.name
+                    });
+                    swal('Added', 'Option added', 'success');
+                  });
+
+                }else{ // otherwise post as normal
+                  $.post(url, {name: term, _token: $('meta[name="_token"]').attr('content'), model: dd_model}, function(data){
+                    chosen.append_option({
+                      value: data.id,
+                      text: data.name
+                    });
+                    swal('Added', '"' + data.name + '" option added', 'success');
+                  });
+                }
+              }
+            }
+          };
+
+          ppnotify('confirm', confirmOptions);
+
+
+        }
+      }
+
       iElm.chosen({
         width: '100%',
         max_selected_options: maxSelection,
         disable_search_threshold: searchThreshold,
         search_contains: true,
-        create_option: function(term) {
-          var chosen = this;
-          var dd_model = chosen.form_field_jq.data('add-option');
-          var data_url = chosen.form_field_jq.data('add-url');
-          var url = api_prefix + 'dd';
-          if(data_url != null){
-              url = data_url;
-          }
-
-          // check to see if there's a releates to data object
-          var relatesToSelector = chosen.form_field_jq.data('relates-to');
-          if(relatesToSelector != null){ // post with relatedid
-
-            $.post(url, {name: term, relatedId: $(relatesToSelector).val(), _token: $('meta[name="_token"]').attr('content'), model: dd_model}, function(data){
-              chosen.append_option({
-                value: data.id,
-                text: data.name
-              });
-            });
-
-          }else{ // otherwise post as normal
-            $.post(url, {name: term, _token: $('meta[name="_token"]').attr('content'), model: dd_model}, function(data){
-              chosen.append_option({
-                value: data.id,
-                text: data.name
-              });
-            });
-          }
-        },
+        create_option: addDataOption,
         allow_single_deselect: allowSingleDeselect
       });
 
