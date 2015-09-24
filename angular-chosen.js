@@ -93,11 +93,12 @@
                   url = data_url;
                 }
 
+                var context_id = window.context_id || '';
                 // check to see if there's a releates to data object
                 var relatesToSelector = chosen.form_field_jq.data('relates-to');
                 if(relatesToSelector != null){ // post with relatedid
 
-                  $.post(url, {name: term, relatedId: $(relatesToSelector).val(), _token: $('meta[name="_token"]').attr('content'), model: dd_model}, function(data){
+                  $.post(url, {name: term, relatedId: $(relatesToSelector).val(), _token: $('meta[name="_token"]').attr('content'), model: dd_model, context_id: context_id}, function(data){
                     chosen.append_option({
                       value: data.id,
                       text: data.name
@@ -106,7 +107,7 @@
                   });
 
                 }else{ // otherwise post as normal
-                  $.post(url, {name: term, _token: $('meta[name="_token"]').attr('content'), model: dd_model}, function(data){
+                  $.post(url, {name: term, _token: $('meta[name="_token"]').attr('content'), model: dd_model, context_id: context_id}, function(data){
                     chosen.append_option({
                       value: data.id,
                       text: data.name
