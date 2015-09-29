@@ -103,7 +103,11 @@
                       value: data.id,
                       text: data.name
                     });
-                    swal('Added', 'Option added', 'success');
+                    ppnotify('alert', {
+                      title: 'Added',
+                      message: '"' + data.name + '" option added',
+                      type: 'success'
+                    });
                   });
 
                 }else{ // otherwise post as normal
@@ -112,7 +116,11 @@
                       value: data.id,
                       text: data.name
                     });
-                    swal('Added', '"' + data.name + '" option added', 'success');
+                    ppnotify('alert', {
+                      title: 'Added',
+                      message: '"' + data.name + '" option added',
+                      type: 'success'
+                    });
                   });
                 }
               }
