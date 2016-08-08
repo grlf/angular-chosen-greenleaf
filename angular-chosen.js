@@ -139,7 +139,8 @@
         disable_search_threshold: searchThreshold,
         search_contains: true,
         create_option: addDataOption,
-        allow_single_deselect: allowSingleDeselect
+        allow_single_deselect: allowSingleDeselect,
+        scroll_to_highlighted: false
       });
 
       iElm.on('change', function () {
