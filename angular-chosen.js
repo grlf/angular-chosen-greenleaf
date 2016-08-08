@@ -82,7 +82,7 @@
             showCancelButton: true,
             confirmButtontext: 'Yes',
             cancelButtonText: 'Cancel',
-            closeOnConfirm: false,
+            closeOnConfirm: true,
             closeOnCancel: true,
             'callback': function(isConfirm){
               if(isConfirm) {
@@ -103,11 +103,11 @@
                       value: data.id,
                       text: data.name
                     });
-                    ppnotify('alert', {
+                    /*ppnotify('alert', {
                       title: 'Added',
                       message: '"' + data.name + '" option added',
                       type: 'success'
-                    });
+                    });*/
                   });
 
                 }else{ // otherwise post as normal
@@ -116,11 +116,11 @@
                       value: data.id,
                       text: data.name
                     });
-                    ppnotify('alert', {
+                    /*ppnotify('alert', {
                       title: 'Added',
                       message: '"' + data.name + '" option added',
                       type: 'success'
-                    });
+                    });*/
                   });
                 }
               }
