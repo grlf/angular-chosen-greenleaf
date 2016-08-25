@@ -1,9 +1,10 @@
 {
   "name": "angular-chosen-greenleaf",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "homepage": "http://www.greenleafmedia.com",
   "authors": [
-    "GreenLeafMedia"
+    "GreenLeafMedia",
+    "John Hoopes"
   ],
   "description": "Angular wrapper for chosen.  Used in one of our apps, but adds functionality for creating inline, and sending off to a url",
   "main": "angular-chosen.js",

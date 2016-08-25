@@ -149,6 +149,16 @@
 
       $scope.$watchGroup(watchCollection, function () {
         $timeout(function () {
+
+          // force options to be sorted alphabetically
+          var my_options = iElm.children();
+          my_options.sort(function(a,b) {
+            if (a.text > b.text) return 1;
+            else if (a.text < b.text) return -1;
+            else return 0
+          })
+          iElm.empty().append(my_options);
+
           iElm.trigger('chosen:updated');
         }, 100);
       });
