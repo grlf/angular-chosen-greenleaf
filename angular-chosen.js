@@ -147,6 +147,7 @@
         iElm.trigger('chosen:updated');
       });
 
+      $scope.reOrdered = false;
       $scope.$watchGroup(watchCollection, function () {
         $timeout(function () {
 
