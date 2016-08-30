@@ -1,4 +1,4 @@
- /*
+/*
  * Use this directive to convert drop downs into chosen drop downs.
  * http://harvesthq.github.io/chosen/
  * http://adityasharat.github.io/angular-chosen/
@@ -57,7 +57,7 @@
     /* Linker for the directive */
     linker = function ($scope, iElm, iAttr) {
       var maxSelection = parseInt(iAttr.maxSelection, 10),
-        searchThreshold = parseInt(iAttr.searchThreshold, 10);
+          searchThreshold = parseInt(iAttr.searchThreshold, 10);
 
       if (isNaN(maxSelection) || maxSelection === Infinity) {
         maxSelection = undefined;
@@ -70,6 +70,7 @@
       var allowSingleDeselect = iElm.attr('allow-single-deselect') !== undefined ? true : false;
 
       var addDataOption = false;
+      var persistent_create = false;
 
       if (iElm.attr('data-add-option') || iElm.attr('data-add-url')) {
         addDataOption = function(term) {
@@ -104,10 +105,10 @@
                       text: data.name
                     });
                     /*ppnotify('alert', {
-                      title: 'Added',
-                      message: '"' + data.name + '" option added',
-                      type: 'success'
-                    });*/
+                     title: 'Added',
+                     message: '"' + data.name + '" option added',
+                     type: 'success'
+                     });*/
                   });
 
                 }else{ // otherwise post as normal
@@ -117,10 +118,10 @@
                       text: data.name
                     });
                     /*ppnotify('alert', {
-                      title: 'Added',
-                      message: '"' + data.name + '" option added',
-                      type: 'success'
-                    });*/
+                     title: 'Added',
+                     message: '"' + data.name + '" option added',
+                     type: 'success'
+                     });*/
                   });
                 }
               }
@@ -128,9 +129,8 @@
           };
 
           ppnotify('confirm', confirmOptions);
-
-
         }
+        persistent_create = true;
       }
 
       iElm.chosen({
@@ -139,6 +139,7 @@
         disable_search_threshold: searchThreshold,
         search_contains: true,
         create_option: addDataOption,
+        persistent_create_option: persistent_create,
         allow_single_deselect: allowSingleDeselect,
         scroll_to_highlighted: false
       });
